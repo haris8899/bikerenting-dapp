@@ -38,8 +38,6 @@ public class CreateWalletActivity extends AppCompatActivity {
                             bind.EnterWalletPasswordText.getText().toString());
                     Toast.makeText(CreateWalletActivity.this,
                             "Wallet Created", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CreateWalletActivity.this, UserProfilePage.class);
-                    startActivity(intent);
                     finish();
                 }
                 else

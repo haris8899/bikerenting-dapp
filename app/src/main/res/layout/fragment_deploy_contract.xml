@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard.DeployContractFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contract Has not been Deployed"
+            android:textSize="25sp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please Deploy Contract to Continue"
+            android:textSize="15sp"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/DeployContractButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deploy"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+</FrameLayout>
