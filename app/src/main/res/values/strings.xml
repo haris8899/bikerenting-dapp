@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bike Renting DAPP</string>
+    <string name="title_activity_main_splash">MainSplashActivity</string>
+</resources>
