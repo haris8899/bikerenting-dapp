@@ -10,17 +10,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.bikerentingdapp.Dashboard.AdminPanelFragment;
 import com.example.bikerentingdapp.Dashboard.DeployContractFragment;
 import com.example.bikerentingdapp.Dashboard.FirstUseFragment;
 import com.example.bikerentingdapp.Dashboard.MissingContractFragment;
 import com.example.bikerentingdapp.R;
 import com.example.bikerentingdapp.WalletManagement.CreateWalletActivity;
 import com.example.bikerentingdapp.WalletManagement.ViewWalletActivity;
-import com.example.bikerentingdapp.WalletManagement.Wallet;
+import com.example.bikerentingdapp.WalletManagement.WalletClass;
 import com.example.bikerentingdapp.databinding.ActivityUserProfilePageBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 public class UserProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ActivityUserProfilePageBinding binding;
-    Wallet userwallet;
+    WalletClass userwallet;
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference myref;
@@ -48,7 +48,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myref = database.getReference();
-        if(new Wallet().WalletExists(this))
+        if(new WalletClass().WalletExists(this))
         {
             myref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -57,7 +57,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
                     {
                         if(snapshot.child("Contract").exists())
                         {
-
+                            loadFragment(new AdminPanelFragment());
                         }
                         else
                         {
@@ -132,7 +132,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
         }
         else if(item.getItemId() ==R.id.user_Wallet_DrawerMenu)
         {
-            if(new Wallet().WalletExists(this))
+            if(new WalletClass().WalletExists(this))
             {
                 intent = new Intent(UserProfilePage.this, ViewWalletActivity.class);
                 startActivity(intent);
@@ -162,7 +162,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
     private void navigationDrawer() {
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
-        if(new Wallet().WalletExists(UserProfilePage.this))
+        if(new WalletClass().WalletExists(UserProfilePage.this))
         {
             navigationView.getMenu().findItem(R.id.user_Wallet_DrawerMenu).setTitle("View Wallet");
         }

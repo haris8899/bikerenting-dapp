@@ -31,7 +31,7 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.concurrent.ExecutionException;
 
-public class Wallet {
+public class WalletClass {
     String Address;
     String Password;
     String Filename;
@@ -186,11 +186,11 @@ public class Wallet {
         Filepath = filepath;
     }
 
-    public Wallet()
+    public WalletClass()
     {
 
     }
-    public Wallet(String address, String password, String filename, String filepath) {
+    public WalletClass(String address, String password, String filename, String filepath) {
         Address = address;
         Password = password;
         Filename = filename;

@@ -9,20 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bikerentingdapp.R;
 import com.example.bikerentingdapp.WalletManagement.CreateWalletActivity;
-import com.example.bikerentingdapp.WalletManagement.Wallet;
+import com.example.bikerentingdapp.WalletManagement.WalletClass;
 import com.example.bikerentingdapp.databinding.FragmentFirstUseBinding;
-
-import org.web3j.abi.datatypes.Int;
 
 public class FirstUseFragment extends Fragment {
 
-    Wallet userwallet;
+    WalletClass userwallet;
     FragmentFirstUseBinding binding;
 
     public FirstUseFragment() {
-        userwallet = new Wallet();
+        userwallet = new WalletClass();
 
     }
 

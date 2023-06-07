@@ -2,14 +2,11 @@ package com.example.bikerentingdapp.WalletManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.bikerentingdapp.R;
-import com.example.bikerentingdapp.UserManagement.UserProfilePage;
 import com.example.bikerentingdapp.databinding.ActivityCreateWalletBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,14 +24,14 @@ public class CreateWalletActivity extends AppCompatActivity {
         bind.CreateWalletButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean bool = new Wallet().WalletExists(CreateWalletActivity.this);
+                Boolean bool = new WalletClass().WalletExists(CreateWalletActivity.this);
                 if (bool) {
                     Log.d("Tag", "True");
                 } else {
                     Log.d("Tag", "False");
                 }
                 if (bind.EnterWalletPasswordText.getText().toString().length() >= 6) {
-                    new Wallet().CreateNewWallet(CreateWalletActivity.this,
+                    new WalletClass().CreateNewWallet(CreateWalletActivity.this,
                             bind.EnterWalletPasswordText.getText().toString());
                     Toast.makeText(CreateWalletActivity.this,
                             "Wallet Created", Toast.LENGTH_SHORT).show();

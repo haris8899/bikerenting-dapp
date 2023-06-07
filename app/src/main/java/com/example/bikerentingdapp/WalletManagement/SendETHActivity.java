@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.bikerentingdapp.R;
 import com.example.bikerentingdapp.databinding.ActivitySendEthactivityBinding;
 
 public class SendETHActivity extends AppCompatActivity {
@@ -23,7 +22,7 @@ public class SendETHActivity extends AppCompatActivity {
         bind.SendEthbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Wallet w = new Wallet();
+                WalletClass w = new WalletClass();
                 try {
                     w.sendEth(w.LoadWalletCrediantials(SendETHActivity.this,Password),
                             bind.SendEtherAddressTXT.getText().toString(),

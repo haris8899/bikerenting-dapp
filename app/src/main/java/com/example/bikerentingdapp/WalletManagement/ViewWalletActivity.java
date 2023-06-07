@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.bikerentingdapp.R;
 import com.example.bikerentingdapp.databinding.ActivityViewWalletBinding;
 
 import org.web3j.crypto.CipherException;
@@ -57,10 +56,10 @@ public class ViewWalletActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
-                    credentials = new Wallet().LoadWalletCrediantials(ViewWalletActivity.this, input.getText().toString());
+                    credentials = new WalletClass().LoadWalletCrediantials(ViewWalletActivity.this, input.getText().toString());
                     Log.d("Tag", credentials.getAddress());
                     bind.AccountAddressTxt.setText(credentials.getAddress());
-                    String balance = new Wallet().getbalance(credentials).toString();
+                    String balance = new WalletClass().getbalance(credentials).toString();
                     bind.AccountBalanceTxt.setText(balance + " ETH");
                     dialog.cancel();
                 } catch (CipherException | IOException e) {
