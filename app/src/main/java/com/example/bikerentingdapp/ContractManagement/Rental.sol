@@ -37,9 +37,6 @@ contract BikeRenting{
     //All mappings
     mapping(uint256 => Bike) public bike_mapping;
     mapping(uint256 => bike_AgreementDetails) public AgreementMapping;
-   
-    //Event 
-    event TotalsRent(uint rent);
 
 
     //Modifiers
@@ -59,18 +56,18 @@ contract BikeRenting{
         require(bike_mapping[_bikeNo].owner!= msg.sender,"Access denied only renter can access it");
         _;
     }
-   
+
     //check the account details wether it have sufficient money to pay advance
     modifier check_advance_details(uint256 _id){
         require(msg.value >= uint256(bike_mapping[_id].rent_per_hour)+ uint256(bike_mapping[_id].rent_per_hour),"Balance is Insufficient");
         _;
     }
-    //check same renter address 
+    //check same renter address
     modifier verify_Same_user(uint256 _id){
         require(bike_mapping[_id].renter== msg.sender, "No agreement found between the parties");
         _;
     }
-    
+
 
     //Functions
 
@@ -78,10 +75,10 @@ contract BikeRenting{
     function addBike(string memory _reg,uint _rent,uint256  _advance) public {
         require(msg.sender != address(0));
         no_of_bikes++;
-        bike_mapping[no_of_bikes] = Bike(no_of_bikes,_reg,_advance,0,true,_rent,0,payable(msg.sender), payable(address(0))); 
+        bike_mapping[no_of_bikes] = Bike(no_of_bikes,_reg,_advance,0,true,_rent,0,payable(msg.sender), payable(address(0)));
     }
 
-     // used to sign bike agreement
+    // used to sign bike agreement
     function signAgreement(uint256 _index) public payable verifyRenter(_index) check_advance_details(_index) checkAvailablity(_index) {
         require(msg.sender != address(0));
         address payable _owner = bike_mapping[_index].owner;
@@ -105,14 +102,13 @@ contract BikeRenting{
     //function to calculate rent
     function ReturnBike(uint _id) public payable verify_Same_user(_id){
         uint TotalRent = CalculateRent(_id);
-        emit TotalsRent(TotalRent);
         require(msg.value >= TotalRent, "Insufficient Balance Please topup your account");
         //To transfer ethers
-        address payable CurrentOwner = AgreementMapping[_id].bike_Aggrement_owner; 
+        address payable CurrentOwner = AgreementMapping[_id].bike_Aggrement_owner;
         address payable renters = AgreementMapping[_id].bike_Aggrement_renter;
         CurrentOwner.transfer(TotalRent);
         renters.transfer(address(this).balance);
         bike_mapping[_id].bike_availability = true;
     }
 
-}   
+}
