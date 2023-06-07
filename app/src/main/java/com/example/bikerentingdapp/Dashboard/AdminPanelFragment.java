@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bikerentingdapp.BikeManagement.AddBikeActivity;
+import com.example.bikerentingdapp.BikeManagement.RecyclerItemSelectListener;
+import com.example.bikerentingdapp.BikeManagement.SingleViewActivity;
 import com.example.bikerentingdapp.BikeManagement.ViewBikeAdapter;
 import com.example.bikerentingdapp.BikeManagement.bikeClass;
 import com.example.bikerentingdapp.ContractManagement.ContractExecutiveFunctions;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
 
 import jnr.ffi.annotations.In;
 
-public class AdminPanelFragment extends Fragment {
+public class AdminPanelFragment extends Fragment implements RecyclerItemSelectListener {
 
     FragmentAdminPanelBinding bind;
     FirebaseDatabase database;
@@ -55,7 +57,7 @@ public class AdminPanelFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
         list = new ArrayList<>();
-        adapter = new ViewBikeAdapter(list);
+        adapter = new ViewBikeAdapter(this,list);
     }
 
     @Override
@@ -141,4 +143,10 @@ public class AdminPanelFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClicked(int position) {
+        Intent intent = new Intent(getActivity(), SingleViewActivity.class);
+        intent.putExtra("A1",position);
+        startActivity(intent);
+    }
 }
