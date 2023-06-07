@@ -44,6 +44,7 @@ public class AddBikeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityAddBikeBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        getSupportActionBar().hide();
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
         intent = getIntent();

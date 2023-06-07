@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.bikerentingdapp.BikeManagement.SingleViewActivity;
 import com.example.bikerentingdapp.Dashboard.AdminPanelFragment;
 import com.example.bikerentingdapp.Dashboard.DeployContractFragment;
 import com.example.bikerentingdapp.Dashboard.FirstUseFragment;
@@ -144,6 +146,33 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
                 startActivity(intent);
                 finish();
             }
+        } else if(item.getItemId()== R.id.view_contracts_menu)
+        {
+            myref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child("Users")
+                            .child(auth.getUid()).child("bike").exists())
+                    {
+                        String pos = snapshot.child("Users")
+                                .child(auth.getUid()).child("bike").getValue().toString();
+                        Intent intent1 = new Intent(UserProfilePage.this, SingleViewActivity.class);
+                        intent1.putExtra("A1",pos);
+                        startActivity(intent1);
+                    } else
+                    {
+                        Toast.makeText(UserProfilePage.this
+                                ,"Please Make a Rent Agreement"
+                                ,Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 //        if (item.getItemId() == R.id.nav_home) {
 //            drawerLayout.closeDrawer(GravityCompat.START);
@@ -164,6 +193,21 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
     private void navigationDrawer() {
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("Users")
+                        .child(auth.getUid()).child("type").getValue().equals("Admin"))
+                {
+                    navigationView.getMenu().findItem(R.id.view_contracts_menu).setVisible(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         if(new WalletClass().WalletExists(UserProfilePage.this))
         {
             navigationView.getMenu().findItem(R.id.user_Wallet_DrawerMenu).setTitle("View Wallet");

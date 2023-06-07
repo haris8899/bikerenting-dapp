@@ -104,6 +104,21 @@ public class SingleViewActivity extends AppCompatActivity {
                         if(MyAddress.equals(receipt.component8()))
                         {
                             bind.MainBikeButton.setVisibility(View.GONE);
+                            if(!receipt.component5())
+                            {
+                                bind.MainBikeButton.setVisibility(View.VISIBLE);
+                                bind.MainBikeButton.setText("View Contract");
+                                bind.MainBikeButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent1 = new Intent(SingleViewActivity.this, ViewAgreementActivity.class);
+                                        intent1.putExtra("A1",position);
+                                        intent1.putExtra("A2",Password);
+                                        intent1.putExtra("A3",finalContractAddress);
+                                        startActivity(intent1);
+                                    }
+                                });
+                            }
                         }
                         else
                         {
@@ -115,6 +130,8 @@ public class SingleViewActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         Intent intent1 = new Intent(SingleViewActivity.this, ViewAgreementActivity.class);
                                         intent1.putExtra("A1",position);
+                                        intent1.putExtra("A2",Password);
+                                        intent1.putExtra("A3",finalContractAddress);
                                         startActivity(intent1);
                                     }
                                 });
@@ -125,16 +142,34 @@ public class SingleViewActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                bind.MainBikeButton.setText("Rent");
-                                bind.MainBikeButton.setOnClickListener(new View.OnClickListener() {
+                                database.getReference().addValueEventListener(new ValueEventListener() {
                                     @Override
-                                    public void onClick(View v) {
-                                        Float amount = Float.valueOf(adv) + Float.valueOf(rent);
-                                        BigDecimal brent = Convert.toWei(String.valueOf(amount), Convert.Unit.ETHER);
-                                        SignAgreementAlertDialog(finalContractAddress,brent.toBigInteger());
-                                        database.getReference()
-                                                .child("Users")
-                                                .child(auth.getUid()).child("bike").setValue(position);
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.child("Users").child(auth.getUid()).child("bike").exists())
+                                        {
+                                            bind.MainBikeButton.setText("Contract Already Active");
+                                            bind.MainBikeButton.setEnabled(false);
+                                        }
+                                        else
+                                        {
+                                            bind.MainBikeButton.setText("Rent");
+                                            bind.MainBikeButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    Float amount = Float.valueOf(adv) + Float.valueOf(rent);
+                                                    BigDecimal brent = Convert.toWei(String.valueOf(amount), Convert.Unit.ETHER);
+                                                    SignAgreementAlertDialog(finalContractAddress,brent.toBigInteger());
+                                                    database.getReference()
+                                                            .child("Users")
+                                                            .child(auth.getUid()).child("bike").setValue(position);
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
                                     }
                                 });
                             }
