@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bikerentingdapp.R;
 
+import org.web3j.utils.Convert;
+
 import java.util.ArrayList;
 
 public class ViewBikeAdapter extends RecyclerView.Adapter<ViewBikeAdapter.ViewHolder> {
@@ -37,7 +39,8 @@ public class ViewBikeAdapter extends RecyclerView.Adapter<ViewBikeAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         bikeClass bike = list.get(position);
         holder.Reg.setText(bike.getReg());
-        holder.Rent.setText(bike.getRent());
+        String rent = Convert.fromWei(bike.getRent(),Convert.Unit.ETHER).toString();
+        holder.Rent.setText(rent + " ETH");
     }
 
     @Override
