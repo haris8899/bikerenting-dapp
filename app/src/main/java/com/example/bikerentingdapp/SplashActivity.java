@@ -10,7 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.example.bikerentingdapp.UserManagement.SigninActivity;
+import com.example.bikerentingdapp.UserManagement.UserProfilePage;
 import com.example.bikerentingdapp.databinding.ActivitySplashBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -43,10 +45,24 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+//                    Intent intent = new Intent(SplashActivity.this,
+//                            SigninActivity.class);
+//                    startActivity(intent);
+//                    finish();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                //For Email Verification and keep user login
+                if(auth.getCurrentUser()!=null && auth.getCurrentUser().isEmailVerified() )
+                {
                     Intent intent = new Intent(SplashActivity.this,
-                            SigninActivity.class);
+                            UserProfilePage.class);
                     startActivity(intent);
                     finish();
+
+                } else {
+                    Intent intent=new Intent(SplashActivity.this, SigninActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },5000);
 
