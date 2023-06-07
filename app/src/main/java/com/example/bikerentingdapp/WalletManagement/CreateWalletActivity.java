@@ -2,11 +2,13 @@ package com.example.bikerentingdapp.WalletManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.bikerentingdapp.UserManagement.UserProfilePage;
 import com.example.bikerentingdapp.databinding.ActivityCreateWalletBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,6 +37,8 @@ public class CreateWalletActivity extends AppCompatActivity {
                             bind.EnterWalletPasswordText.getText().toString());
                     Toast.makeText(CreateWalletActivity.this,
                             "Wallet Created", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CreateWalletActivity.this, UserProfilePage.class);
+                    startActivity(intent);
                     finish();
                 }
                 else

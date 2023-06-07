@@ -17,6 +17,7 @@ import com.example.bikerentingdapp.Dashboard.AdminPanelFragment;
 import com.example.bikerentingdapp.Dashboard.DeployContractFragment;
 import com.example.bikerentingdapp.Dashboard.FirstUseFragment;
 import com.example.bikerentingdapp.Dashboard.MissingContractFragment;
+import com.example.bikerentingdapp.Dashboard.UserPanelFragment;
 import com.example.bikerentingdapp.R;
 import com.example.bikerentingdapp.WalletManagement.CreateWalletActivity;
 import com.example.bikerentingdapp.WalletManagement.ViewWalletActivity;
@@ -68,7 +69,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
                     {
                         if(snapshot.child("Contract").exists())
                         {
-
+                            loadFragment(new UserPanelFragment());
                         }
                         else
                         {
@@ -141,6 +142,7 @@ public class UserProfilePage extends AppCompatActivity implements NavigationView
             {
                 intent = new Intent(UserProfilePage.this, CreateWalletActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
 //        if (item.getItemId() == R.id.nav_home) {
