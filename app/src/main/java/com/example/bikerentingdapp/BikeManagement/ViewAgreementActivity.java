@@ -93,6 +93,7 @@ public class ViewAgreementActivity extends AppCompatActivity {
         bind.StartTimeText.setText(date1);
         bind.RentConText.setText(rent + " ETH");
         bind.AdvanceConText.setText(rent + " ETH");
+        bind.AgreementIDtext.setText(receipt.component8().toString());
         String MyAddress = new WalletClass()
                 .LoadWalletCrediantials(ViewAgreementActivity.this, Password).getAddress();
         bind.ViewRentButton.setOnClickListener(new View.OnClickListener() {
